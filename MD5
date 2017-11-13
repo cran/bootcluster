@@ -1,0 +1,11 @@
+da7c0e94bd5010a421a82ae331ab0dcc *DESCRIPTION
+45b9b5fe15314010387020b7a365d8de *NAMESPACE
+430d3df729e21957d2ec4980084496c0 *R/data_wine.R
+b16dbc1b43fca426df5cd1ad322c2eba *R/helpers.R
+280f05a6b1fd3f0658e3468dcfb4f328 *R/kselect.R
+f845ce632a5f670292a1176a60795a9d *R/scheme2.R
+f13d80551c52f167816d3a7e21b55b8c *R/stability.R
+49290b789d58217bc82a9da0c41cdf28 *data/wine.rda
+a10dd70bfb1c4fd14a5db2c607c322ec *man/k.select.Rd
+eb6e3376150c680793212443c8873785 *man/stability.Rd
+ebaaffd9ccaaa11842f88da6b4a4ad66 *man/wine.Rd
