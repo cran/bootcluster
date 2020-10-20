@@ -4,8 +4,7 @@
 \alias{k.select}
 \title{Estimate number of clusters}
 \usage{
-k.select(x, range = 2:7, B = 20, r = 5, threshold = 0.8,
-  scheme_2 = TRUE)
+k.select(x, range = 2:7, B = 20, r = 5, threshold = 0.8, scheme_2 = TRUE)
 }
 \arguments{
 \item{x}{a \code{data.frame} of the data set}
@@ -39,11 +38,13 @@ of the original data as the reference for stability calculations. Scheme 2 searc
 acrossthe clustering samples that gives the most stable clustering.
 }
 \examples{
+\dontrun{
 set.seed(1)
 data(wine)
 x0 <- wine[,2:14]
 x <- scale(x0)
 k.select(x, range = 2:10, B=20, r=5, scheme_2 = TRUE)
+}
 }
 \references{
 Bootstrapping estimates of stability for clusters, observations and model selection.

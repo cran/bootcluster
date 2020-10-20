@@ -34,11 +34,13 @@ for stability calculations. Scheme 2 searches acrossthe clustering samples that 
 most stable clustering.
 }
 \examples{
+ \dontrun{
 set.seed(1)
 data(wine)
 x0 <- wine[,2:14]
 x <- scale(x0)
 stability(x, k = 3, B=20, r=5, scheme_2 = TRUE)
+}
 }
 \references{
 Bootstrapping estimates of stability for clusters, observations and model selection.

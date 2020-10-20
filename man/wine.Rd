@@ -4,8 +4,10 @@
 \name{wine}
 \alias{wine}
 \title{Wine Data Set}
-\format{The data set \code{wine} contains a \code{data.frame} of 14 variables. The first variable is the types
-of wines. The other 13 variables are quantities of the constituents.}
+\format{
+The data set \code{wine} contains a \code{data.frame} of 14 variables. The first variable is the types
+of wines. The other 13 variables are quantities of the constituents.
+}
 \usage{
 data(wine)
 }
