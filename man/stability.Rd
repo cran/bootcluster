@@ -34,7 +34,7 @@ for stability calculations. Scheme 2 searches acrossthe clustering samples that 
 most stable clustering.
 }
 \examples{
- \dontrun{
+ \donttest{
 set.seed(1)
 data(wine)
 x0 <- wine[,2:14]

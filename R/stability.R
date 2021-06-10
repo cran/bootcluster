@@ -26,11 +26,11 @@
 #' @references Bootstrapping estimates of stability for clusters, observations and model selection.
 #' Han Yu, Brian Chapman, Arianna DiFlorio, Ellen Eischen, David Gotz, Matthews Jacob and Rachael Hageman Blair.
 #'
-#' @import cluster mclust sets fpc plyr
+#' @import cluster mclust fpc plyr
 #' @importFrom flexclust dist2
 #'
 #' @examples
-#'  \dontrun{
+#'  \donttest{
 #' set.seed(1)
 #' data(wine)
 #' x0 <- wine[,2:14]

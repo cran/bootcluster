@@ -16,7 +16,7 @@
 
 \item{PermuNo}{number of random graphs for the estimation of expected stability}
 
-\item{no_cores}{a \code{interger} number of CPU cores on the current host.}
+\item{no_cores}{a \code{interger} number of CPU cores on the current host (This function can't not be used yet).}
 }
 \value{
 \describe{
@@ -37,7 +37,7 @@ Estimate of the overall Jaccard stability
 a sequence of given threshold candidates, \code{threshold.seq}.
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(1)
 data(wine)
 x0 <- wine[1:50,]
@@ -45,6 +45,7 @@ x0 <- wine[1:50,]
 mytest<-threshold.select(data.input=x0,threshold.seq=seq(0.5,0.8,by=0.05), B=20, 
 cor.method='pearson',large.size=0,
 PermuNo = 10,
+no_cores=1,
 scheme_2 = FALSE)
 }
 }

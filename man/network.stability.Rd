@@ -51,7 +51,7 @@ graph to the various bootstrapped correlation graphs, and to assess the stabilit
 (1) node-level, (2) module-level, and (3) overall.
 }
 \examples{
-\dontrun{
+\donttest{
 set.seed(1)
 data(wine)
 x0 <- wine[1:50,]

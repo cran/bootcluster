@@ -21,18 +21,34 @@
 #' @import gridExtra 
 #' @import intergraph 
 #' @import GGally
+#' @importFrom igraph graph_from_adjacency_matrix fastgreedy.community induced.subgraph  V clusters degree sample_degseq 
+#' @importFrom dplyr left_join
+#' @importFrom compiler cmpfun
+#' @importFrom doParallel registerDoParallel 
+#' @importFrom parallel clusterExport makeCluster
+#' @importFrom foreach foreach
 #' @importFrom network set.vertex.attribute
-#' 
+#' @importFrom intergraph asNetwork
 #'
 #' @examples
-#' \dontrun{
-#' network.stability.output(result)
+#' \donttest{
+#' set.seed(1)
+#' data(wine)
+#' x0 <- wine[1:50,]
+#' 
+#' mytest<-threshold.select(data.input=x0,threshold.seq=seq(0.1,0.5,by=0.05), B=20, 
+#' cor.method='pearson',large.size=0,
+#' PermuNo = 10,
+#' no_cores=1,
+#' scheme_2 = FALSE)
+#' network.stability.output(mytest)
 #' }
 #' @export
 network.stability.output<-function(input,optimal.only=FALSE){
 
   test.data<-input$originalinformation$data[[1]]
   test.value<-do.call(rbind,input$jaccardresult$obsvalue)
+  
   test.mean<-rowMeans(test.value,na.rm = TRUE)
   reference.value<-input$jaccardresult$expvalue
   B<-ncol(test.value)-1
@@ -71,6 +87,7 @@ network.stability.output<-function(input,optimal.only=FALSE){
                        labels=c("0.0-0.2","0.2-0.4","0.4-0.6",'0.6-0.8',"0.8-1.0"))
       
       net <- asNetwork(test.graph)
+    
       #net %v% "Node Stability"<-as.vector(node_color)
       set.vertex.attribute(net,"Node Stability",as.vector(node_color))
       
@@ -115,7 +132,7 @@ network.stability.output<-function(input,optimal.only=FALSE){
                                                    palette =c("0.0-0.2"="#440154FF","0.2-0.4"="#3B528BFF", "0.4-0.6"="#21908CFF" ,
                                                               "0.6-0.8"="#5DC863FF","0.8-1.0"="#FDE725FF"))+
     ggtitle(paste0('Threshold=',input$threshold[i]))
-  UseMethod("plot")
+
   
   # Final plot 
   

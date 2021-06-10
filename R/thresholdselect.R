@@ -12,7 +12,7 @@
 #' @param cor.method the correlation method applied to the data set,three method are available: \code{"pearson", "kendall", "spearman"}.
 #' @param large.size the smallest set of modules, the \code{large.size=0} is recommended to use right now. 
 #' @param PermuNo number of random graphs for the estimation of expected stability
-#' @param no_cores a \code{interger} number of CPU cores on the current host.
+#' @param no_cores a \code{interger} number of CPU cores on the current host (This function can't not be used yet).
 #'
 #' @return
 #' \describe{
@@ -39,7 +39,7 @@
 #' 
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(1)
 #' data(wine)
 #' x0 <- wine[1:50,]
@@ -47,12 +47,14 @@
 #' mytest<-threshold.select(data.input=x0,threshold.seq=seq(0.5,0.8,by=0.05), B=20, 
 #' cor.method='pearson',large.size=0,
 #' PermuNo = 10,
+#' no_cores=1,
 #' scheme_2 = FALSE)
 #' }
 #' @export
 
 
-utils::globalVariables(c("k"))
+utils::globalVariables(c("k","jaccard","min.agreement","community_coexist","community_membership","community_membership_boot",
+                         "boost.community","scheme2.module","agreement","scheme2.exp","network.stability"))
 
 threshold.select <- function(data.input,threshold.seq, B=20, 
                              cor.method,large.size,
@@ -60,37 +62,46 @@ threshold.select <- function(data.input,threshold.seq, B=20,
                              scheme_2 = FALSE){
   
   myFuncCmp <- cmpfun(network.stability)
-  mcoptions <- list(preschedule = FALSE)
-  # Initiate cluster
-  cl <- makeCluster(no_cores)
-  registerDoParallel(cl)
+  # mcoptions <- list(preschedule = FALSE)
+  # # Initiate cluster
+  # cl <- makeCluster(no_cores)
+  # registerDoParallel(cl)
+  # 
+  # clusterExport(cl,'jaccard')
+  # clusterExport(cl,'min.agreement')
+  # clusterExport(cl,'community_coexist')
+  # clusterExport(cl,'community_membership')
+  # clusterExport(cl,'community_membership_boot')
+  # clusterExport(cl,'boost.community')
+  # clusterExport(cl,'scheme2.module')
+  # clusterExport(cl,'agreement')
+  # clusterExport(cl,'scheme2.exp')
+  # clusterExport(cl,'network.stability')
+  # 
+  # result<-foreach(k = threshold.seq ,
+  #                 .packages=c("igraph", "reshape2", "plyr", 
+  #                             "dplyr"),
+  #                 .options.multicore = mcoptions
+  # ) %dopar% {
+  #   
+  #   myFuncCmp(data.input=data.input,threshold=k, B=B, 
+  #             PermuNo = PermuNo,
+  #             cor.method=cor.method,large.size=large.size,
+  #             scheme_2 = scheme_2)
+  #   
+  # }
   
-  clusterExport(cl,'jaccard')
-  clusterExport(cl,'min.agreement')
-  clusterExport(cl,'community_coexist')
-  clusterExport(cl,'community_membership')
-  clusterExport(cl,'community_membership_boot')
-  clusterExport(cl,'boost.community')
-  clusterExport(cl,'scheme2.module')
-  clusterExport(cl,'agreement')
-  clusterExport(cl,'scheme2.exp')
-  clusterExport(cl,'parelle.function')
-  
-  result<-foreach(k = threshold.seq ,
-                  .packages=c("igraph", "reshape2", "plyr", "qvalue",
-                              "wfg","geneplotter","dplyr","jaccard"),
-                  .options.multicore = mcoptions
-  ) %dopar% {
-    
-    myFuncCmp(data.input=data.input,threshold=k, B=B, 
+  result<-c()
+  for (i in 1:length(threshold.seq)) {
+    k=threshold.seq[i]
+    result[[i]]<-myFuncCmp(data.input=data.input,threshold=k, B=B, 
               PermuNo = PermuNo,
               cor.method=cor.method,large.size=large.size,
               scheme_2 = scheme_2)
-    
   }
   if(length(result)==0)print('Something wrong')
   
-  stopCluster(cl)
+  #stopCluster(cl)
   
   gc()
   

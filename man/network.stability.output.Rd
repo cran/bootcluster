@@ -24,8 +24,17 @@ colored by the level of stability. The network with optimal
 threshold value selected by function \code{threshold.select} is colored as red.
 }
 \examples{
-\dontrun{
-network.stability.output(result)
+\donttest{
+set.seed(1)
+data(wine)
+x0 <- wine[1:50,]
+
+mytest<-threshold.select(data.input=x0,threshold.seq=seq(0.1,0.5,by=0.05), B=20, 
+cor.method='pearson',large.size=0,
+PermuNo = 10,
+no_cores=1,
+scheme_2 = FALSE)
+network.stability.output(mytest)
 }
 }
 \references{

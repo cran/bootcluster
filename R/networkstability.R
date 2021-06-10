@@ -41,7 +41,7 @@
 #' @importFrom foreach foreach
 #' 
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' set.seed(1)
 #' data(wine)
 #' x0 <- wine[1:50,]
