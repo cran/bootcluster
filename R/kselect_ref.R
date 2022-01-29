@@ -6,7 +6,7 @@
 #' in a dataset. The function calculate the Smin of the dataset and at the same time, generate
 #' a reference dataset with the same range as the original dataset in each dimension and calculate
 #' the Smin_ref. The differences between Smin and Smin_ref at each k,Smin_diff(k), is taken into consideration as well as the 
-#' standard deviation of the differences. We choose the k to be the argmax of ( Smin_diff(k) - ( Smin_diff(k+1) + sd(Smin_diff(k+1)) ) ).
+#' standard deviation of the differences. We choose the k to be the argmax of ( Smin_diff(k) - ( Smin_diff(k+1) + (Smin_diff(k+1)) ) ).
 #' If Smin_diff(k) less than 0.1 for all k in k_range, we say k = 1
 #' 
 #'
@@ -19,7 +19,7 @@
 #'
 #' @return
 #' \describe{
-#' \item{\code{profile}}{\code{vector} of ( Smin_diff(k) - ( Smin_diff(k+1) + sd(Smin_diff(k+1)) ) ) measures for researchers's inspection}
+#' \item{\code{profile}}{\code{vector} of ( Smin_diff(k) - ( Smin_diff(k+1) + se(Smin_diff(k+1)) ) ) measures for researchers's inspection}
 #' \item{\code{k}}{estimated number of clusters}
 #' }
 #'
@@ -31,7 +31,6 @@
 #' @import cluster mclust fpc plyr
 #' @importFrom flexclust dist2
 #' @importFrom stats runif sd
-#'
 #' @examples
 #' \donttest{
 #' set.seed(1)
@@ -47,7 +46,7 @@ k.select_ref <- function(df, k_range = 2:7, n_ref = 5, B=100, B_ref = 50, r=5){
   result <- list()
   
   
-  
+  std <- function(x) sd(x)/sqrt(length(x))
   
   # This is the generated reference data
   ref_dist_range <- apply(df,2,range)
@@ -92,17 +91,17 @@ k.select_ref <- function(df, k_range = 2:7, n_ref = 5, B=100, B_ref = 50, r=5){
   }
   
 
-  # Now lets try the plus sd method
+  # Now lets try the plus se method
   
   # First check if the smin minus reference is all negative, if so then nk = 1
   
   Smin_diff = Smin_matrix - colMeans(Smin_ref_matrix)
   if(sum(Smin_diff > 0) == 0){
-    nkoobsd = 1
+    nkoobse = 1
   } else{
     
     # Let's prepare the Smin matrix as same nrows as the reference simulations
-    # to calculate difference mean and sd
+    # to calculate difference mean and se
     Smin_matrix_collection = data.frame()
     for (i in 1:n_ref) {
       Smin_matrix_collection <- rbind(Smin_matrix_collection, Smin_matrix)
@@ -117,24 +116,24 @@ k.select_ref <- function(df, k_range = 2:7, n_ref = 5, B=100, B_ref = 50, r=5){
     # Take away the last column because there is no nk+2 to compare
     Smin_nk_for_compare = colMeans(smin_minus_ref)[-(k_length)]
     
-    # Calculate the mean + sd data, and take away the k = 2 column because we compare with plus 1
-    Smin_nkplus1_plus_sd = (colMeans(smin_minus_ref) + apply(smin_minus_ref,2,sd))[-1]
+    # Calculate the mean + se data, and take away the k = 2 column because we compare with plus 1
+    Smin_nkplus1_plus_se = (colMeans(smin_minus_ref) + apply(smin_minus_ref,2,std))[-1]
     
-    # This is finding where the Smin(k) - ( Smin(k+1) + sd(k+1) ) is maxed and positive
-    hunt_for_elbow = Smin_nk_for_compare - Smin_nkplus1_plus_sd
+    # This is finding where the Smin(k) - ( Smin(k+1) + se(k+1) ) is maxed and positive
+    hunt_for_elbow = Smin_nk_for_compare - Smin_nkplus1_plus_se
     
     # because the huntfor elbow start from k = 2
-    nkoobsd = which.max(hunt_for_elbow)+1
+    nkoobse = which.max(hunt_for_elbow)+1
     
     if(sum(hunt_for_elbow> .1) == 0){
-      nkoobsd =1
+      nkoobse =1
     }
     
     
   }
   
   result$profile <- hunt_for_elbow
-  result$k <- nkoobsd
+  result$k <- nkoobse
   
   return(result)
   

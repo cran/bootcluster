@@ -21,7 +21,7 @@ k.select_ref(df, k_range = 2:7, n_ref = 5, B = 100, B_ref = 50, r = 5)
 }
 \value{
 \describe{
-\item{\code{profile}}{\code{vector} of ( Smin_diff(k) - ( Smin_diff(k+1) + sd(Smin_diff(k+1)) ) ) measures for researchers's inspection}
+\item{\code{profile}}{\code{vector} of ( Smin_diff(k) - ( Smin_diff(k+1) + se(Smin_diff(k+1)) ) ) measures for researchers's inspection}
 \item{\code{k}}{estimated number of clusters}
 }
 }
@@ -33,7 +33,7 @@ This function uses the out-of-bag scheme to estimate the number of clusters
 in a dataset. The function calculate the Smin of the dataset and at the same time, generate
 a reference dataset with the same range as the original dataset in each dimension and calculate
 the Smin_ref. The differences between Smin and Smin_ref at each k,Smin_diff(k), is taken into consideration as well as the 
-standard deviation of the differences. We choose the k to be the argmax of ( Smin_diff(k) - ( Smin_diff(k+1) + sd(Smin_diff(k+1)) ) ).
+standard deviation of the differences. We choose the k to be the argmax of ( Smin_diff(k) - ( Smin_diff(k+1) + (Smin_diff(k+1)) ) ).
 If Smin_diff(k) less than 0.1 for all k in k_range, we say k = 1
 }
 \examples{

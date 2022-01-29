@@ -1,9 +1,9 @@
-48a0e8eadf58b711cc9dc9d93561ae49 *DESCRIPTION
+f84114d4bd226d2810218032b6e631a0 *DESCRIPTION
 de73811ba69f908612380abcf8aec83d *NAMESPACE
 dd1608d287dbdee07f16fcd6c2e4f1b0 *R/data_wine.R
 a1c1c34d3d04a41dc50f6f688d2ec97e *R/helpers.R
 8e110c880959dd98ee90ed2df17d821e *R/kselect.R
-f77afb16bec7fd2fa45b78a0d3ce24ee *R/kselect_ref.R
+59e580b6b8668e222be1f8d891c3c3b6 *R/kselect_ref.R
 57be59250eaf1510ae732ad0649e9a1e *R/myoverallscheme.R
 552966fc3e31ca723fc56bf08d5d6272 *R/networkstability.R
 8c096e5f3a09d9f229c712e830dfcb3b *R/plotcode.R
@@ -16,7 +16,7 @@ b5d623068e164714d7e1d090e66fde43 *R/stability_ob.R
 4187d447da6cbbe7a57bf8501769451f *README.md
 49290b789d58217bc82a9da0c41cdf28 *data/wine.rda
 1e5a4a939f1e3b764ceefafa386e7f1d *man/k.select.Rd
-f6be81f5af7046e17aa4779f5dc5e635 *man/k.select_ref.Rd
+573677fbeca44f44be1f8a5241dad430 *man/k.select_ref.Rd
 37f7d58bf0aae3e2490c84211317b654 *man/network.stability.Rd
 19678299387c77e2c937cd2c93dc1c83 *man/network.stability.output.Rd
 ce3a20728c4163da66f3ae0ccc94aced *man/ob.stability.Rd
