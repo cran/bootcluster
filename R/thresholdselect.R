@@ -53,7 +53,7 @@
 #' @export
 
 
-utils::globalVariables(c("k","jaccard","min.agreement","community_coexist","community_membership","community_membership_boot",
+utils::globalVariables(c("k","jaccard","min_agreement","community_coexist","community_membership","community_membership_boot",
                          "boost.community","scheme2.module","agreement","scheme2.exp","network.stability"))
 
 threshold.select <- function(data.input,threshold.seq, B=20, 
@@ -68,7 +68,7 @@ threshold.select <- function(data.input,threshold.seq, B=20,
   # registerDoParallel(cl)
   # 
   # clusterExport(cl,'jaccard')
-  # clusterExport(cl,'min.agreement')
+  # clusterExport(cl,'min_agreement')
   # clusterExport(cl,'community_coexist')
   # clusterExport(cl,'community_membership')
   # clusterExport(cl,'community_membership_boot')
@@ -95,9 +95,9 @@ threshold.select <- function(data.input,threshold.seq, B=20,
   for (i in 1:length(threshold.seq)) {
     k=threshold.seq[i]
     result[[i]]<-myFuncCmp(data.input=data.input,threshold=k, B=B, 
-              PermuNo = PermuNo,
-              cor.method=cor.method,large.size=large.size,
-              scheme_2 = scheme_2)
+                           PermuNo = PermuNo,
+                           cor.method=cor.method,large.size=large.size,
+                           scheme_2 = scheme_2)
   }
   if(length(result)==0)print('Something wrong')
   

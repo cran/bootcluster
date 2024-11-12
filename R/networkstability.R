@@ -72,10 +72,10 @@ network.stability<-function(data.input,threshold, B=20,
   
   ref.cl <- c.mat[ref,]
   c.mat.1 <- c.mat[-ref,]
-  min.agr <- c()
+    min.agr <- c()
   for (i in 1:B)
   {
-    min.agr[i] <- min.agreement(ref.cl, agreement(ref.cl, c.mat.1[i,]))
+    min.agr[i] <- min_agreement(ref.cl, agreement(ref.cl, c.mat.1[i,]))
   }
   crit=mean(min.agr)
   

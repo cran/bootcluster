@@ -45,7 +45,8 @@
 #' }
 #' @export
 network.stability.output<-function(input,optimal.only=FALSE){
-
+  
+  test_gg <- sna::rgraph(1,1)
   test.data<-input$originalinformation$data[[1]]
   test.value<-do.call(rbind,input$jaccardresult$obsvalue)
   
@@ -87,7 +88,7 @@ network.stability.output<-function(input,optimal.only=FALSE){
                        labels=c("0.0-0.2","0.2-0.4","0.4-0.6",'0.6-0.8',"0.8-1.0"))
       
       net <- asNetwork(test.graph)
-    
+      
       #net %v% "Node Stability"<-as.vector(node_color)
       set.vertex.attribute(net,"Node Stability",as.vector(node_color))
       
@@ -132,7 +133,7 @@ network.stability.output<-function(input,optimal.only=FALSE){
                                                    palette =c("0.0-0.2"="#440154FF","0.2-0.4"="#3B528BFF", "0.4-0.6"="#21908CFF" ,
                                                               "0.6-0.8"="#5DC863FF","0.8-1.0"="#FDE725FF"))+
     ggtitle(paste0('Threshold=',input$threshold[i]))
-
+  
   
   # Final plot 
   

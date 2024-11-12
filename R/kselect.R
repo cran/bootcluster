@@ -44,7 +44,7 @@
 k.select <- function(x, range=2:7, B=20, r=5, threshold=0.8, scheme_2 = TRUE){
   df <- x
   result <- list()
-  crit <- c() # matrix(NA, nrow=length(range), ncol=2) ##
+  crit <- c()
   j <- 1
   for (k in range)
   {
@@ -58,19 +58,12 @@ k.select <- function(x, range=2:7, B=20, r=5, threshold=0.8, scheme_2 = TRUE){
       ref <- s2$ref.cluster
     }
 
-    ref.scheme1 <- c.mat[1,] #
-    c.mat.scheme1 <- c.mat[-1,] #
-    min.agr.scheme1 <- c()
-
     ref.cl <- c.mat[ref,]
     c.mat.1 <- c.mat[-ref,]
     for (i in 1:B)
     {
-      min.agr[i] <- min.agreement(ref.cl, agreement(ref.cl, c.mat.1[i,]))
-      # min.agr.scheme1[i] <- #
-       #  min.agreement(ref.scheme1, agreement(ref.scheme1, c.mat.scheme1[i,])) #
+      min.agr[i] <- min_agreement(clst=ref.cl, agrmt=agreement(ref.cl, c.mat.1[i,]))
     }
-    # crit[j,1] <- mean(min.agr.scheme1)
     crit[j] <- mean(min.agr)
     j <- j+1
   }
@@ -78,8 +71,5 @@ k.select <- function(x, range=2:7, B=20, r=5, threshold=0.8, scheme_2 = TRUE){
 
   result$profile <- crit
   result$k <- range[max(which(crit > threshold))]
-  # colnames(crit) <- c("s1", "s2")
   return(result)
 }
-
-# s2 <- k.select(iris[,1:4], range=2:7, B=20, r=5, scheme_2 = TRUE)
