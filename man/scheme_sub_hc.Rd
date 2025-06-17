@@ -7,7 +7,7 @@
 scheme_sub_hc(
   df,
   nk,
-  B = 20,
+  B = 10,
   cut_ratio = 0.5,
   hc.method = "ward.D",
   dist_method = "euclidean"

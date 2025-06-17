@@ -78,5 +78,10 @@ esmbl.stability <- function(x, k, scheme="kmeans", B=100, hc.method="ward.D", cu
     result$overall <- overall_stability
     result$Smin <- Smin
     
+    # Pass through the runtime from the scheme_sub function
+    if (!is.null(output$runtime)) {
+        result$runtime <- output$runtime
+    }
+    
     return(result)
 }

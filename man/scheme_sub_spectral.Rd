@@ -4,7 +4,7 @@
 \alias{scheme_sub_spectral}
 \title{Subsampling-based Spectral Clustering}
 \usage{
-scheme_sub_spectral(df, nk, B = 20, cut_ratio = 0.5)
+scheme_sub_spectral(df, nk, B = 10, cut_ratio = 0.5)
 }
 \arguments{
 \item{df}{data.frame or matrix of the dataset}
