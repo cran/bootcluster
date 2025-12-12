@@ -28,7 +28,7 @@
 #'
 #' @author Tianmou Liu
 #' 
-#' @import cluster mclust fpc plyr
+#' @import cluster mclust fpc
 #' @importFrom flexclust dist2
 #'
 #' @references Bootstrapping estimates of stability for clusters, observations and model selection.

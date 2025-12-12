@@ -26,7 +26,7 @@
 #'
 #' @author Tianmou Liu
 #' 
-#' @import cluster mclust fpc plyr 
+#' @import cluster mclust fpc
 #' @importFrom flexclust dist2
 #' @importFrom kernlab specc
 #' @importFrom stats hclust cutree dist kmeans
